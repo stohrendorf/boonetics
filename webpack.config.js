@@ -76,7 +76,7 @@ module.exports = {
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            title: 'unauthorized',
+            title: 'boonetics',
             template: "./public/index.html"
         })
     ]

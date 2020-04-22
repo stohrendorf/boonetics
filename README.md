@@ -1,4 +1,4 @@
-# unauthorized
+# boonetics
 
 ## Project setup
 ```
