@@ -19,8 +19,6 @@
         @Prop() public end?: number | string;
         @Prop() public step?: number | string;
 
-        private _slider?: any;
-
         public mounted() {
             const coerceFloat = (value: number | string | undefined): number | undefined =>
                 value === undefined ? undefined : typeof value === 'string' ? parseFloat(value) : value;
@@ -28,11 +26,11 @@
             const self = this;
             this.$nextTick(() => {
                 const $elem = $(<HTMLElement>self.$refs.slider);
-                self._slider = new Foundation.Slider($elem, {
+                new Foundation.Slider($elem, {
                     start: coerceFloat(self.start),
                     end: coerceFloat(self.end),
                     step: coerceFloat(self.step),
-                    initialStart: self.value,
+                    initialStart: self.value
                 });
                 $elem.on('change changed.zf.slider',
                     () => this.$emit('input', (<HTMLInputElement>this.$refs.input).value));

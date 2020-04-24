@@ -1,5 +1,7 @@
 <template>
-    <canvas :height="height" width="100%" ref="container"></canvas>
+    <div>
+        <canvas :height="height" ref="container" width="100%"></canvas>
+    </div>
 </template>
 
 <script lang="ts">
@@ -9,8 +11,8 @@
 
     @Component
     export default class LineChart extends Vue {
-        @Prop() data?: Array<number>;
-        @Prop() height?: number;
+        @Prop({required: true}) data?: Array<number>;
+        @Prop({required: true}) height?: string;
 
         private _chart: Chart | null = null;
 
@@ -34,6 +36,7 @@
         }
 
         public mounted() {
+            (<HTMLCanvasElement>this.$el).style.height = <string>this.height;
             this.$container.width = this.$container.getBoundingClientRect().width;
 
             const ctx = <CanvasRenderingContext2D>this.$container.getContext('2d');

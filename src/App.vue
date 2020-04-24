@@ -1,14 +1,10 @@
 <template>
     <div class="grid-container">
-        <ul class="tabs" data-tabs id="main-tabs">
-            <li class="tabs-title is-active"><a href="#simulator" aria-selected="true">Simulator</a></li>
-            <li class="tabs-title"><a data-tabs-target="about" href="#about">About</a></li>
-        </ul>
-        <div class="tabs-content" data-tabs-content="main-tabs">
-            <div class="tabs-panel is-active" id="simulator">
+        <foundation-tabs id="main-tabs" initial="simulator">
+            <foundation-tab id="simulator" title="Simulator">
                 <simulator/>
-            </div>
-            <div class="tabs-panel" id="about">
+            </foundation-tab>
+            <foundation-tab id="about" title="About">
                 <h3>boonetics</h3>
                 <h4>So... what is this?</h4>
                 <p>
@@ -51,18 +47,20 @@
                     Good question&hellip; hm&hellip; uh&hellip; ah&hellip; look, there, a squirrel!
                     <small><i>*runs away*</i></small>
                 </p>
-            </div>
-        </div>
+            </foundation-tab>
+        </foundation-tabs>
     </div>
 </template>
 
 <script lang="ts">
-    import {Vue, Component} from 'vue-property-decorator';
+    import {Component, Vue} from 'vue-property-decorator';
     import Simulator from 'components/Simulator.vue';
     import * as $ from 'jquery';
+    import FoundationTabs from 'components/FoundationTabs.vue';
+    import FoundationTab from 'components/FoundationTab.vue';
 
     @Component({
-        components: {Simulator}
+        components: {Simulator, FoundationTabs, FoundationTab}
     })
     export default class App extends Vue {
         public mounted() {

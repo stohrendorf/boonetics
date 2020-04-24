@@ -5,6 +5,11 @@
     "module": "es2015",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true
   }
 }
