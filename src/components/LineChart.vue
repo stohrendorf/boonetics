@@ -5,16 +5,17 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+    import {Component, Prop, Ref, Vue, Watch} from 'vue-property-decorator';
     import * as Chart from 'chart.js';
     import {ChartDataSets} from 'chart.js';
 
     @Component
     export default class LineChart extends Vue {
-        @Prop({required: true}) data?: Array<number>;
-        @Prop({required: true}) height?: string;
+        @Prop({required: true}) data!: Array<number>;
+        @Prop({required: true}) height!: string;
 
         private _chart: Chart | null = null;
+        @Ref('container') _container!: HTMLCanvasElement;
 
         @Watch('data')
         public updateData(oldData: number[], newData: number[]) {
@@ -28,18 +29,21 @@
         }
 
         private get $container() {
-            return <HTMLCanvasElement>this.$refs.container;
+            return this._container;
         }
 
         private get chartDataLabels() {
-            return (<Array<number>>this.data).map((value, index) => index);
+            return this.data.map((value, index) => index);
         }
 
         public mounted() {
-            (<HTMLCanvasElement>this.$el).style.height = <string>this.height;
+            (<HTMLCanvasElement>this.$el).style.height = this.height;
             this.$container.width = this.$container.getBoundingClientRect().width;
 
-            const ctx = <CanvasRenderingContext2D>this.$container.getContext('2d');
+            const ctx = this.$container.getContext('2d');
+            if (!ctx) {
+                throw new Error('Failed to retrieve 2D canvas context');
+            }
 
             this._chart = new Chart(ctx, {
                 type: 'line',
@@ -70,7 +74,7 @@
                             },
                             ticks: {
                                 suggestedMin: 0,
-                                suggestedMax: (<Array<number>>this.data).length - 1
+                                suggestedMax: this.data.length - 1
                             }
                         }],
                         yAxes: [{

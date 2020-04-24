@@ -11,8 +11,8 @@
         inheritAttrs: false
     })
     export default class FoundationTab extends Vue {
-        @Prop({required: true}) public id?: string;
-        @Prop({required: true}) public title?: string;
+        @Prop({required: true}) public id!: string;
+        @Prop({required: true}) public title!: string;
 
         public get href() {
             return `#${this.id}`;

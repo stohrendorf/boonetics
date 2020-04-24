@@ -20,7 +20,7 @@
         inheritAttrs: false
     })
     export default class FoundationTabs extends Vue {
-        @Prop({required: true}) public id?: string;
+        @Prop({required: true}) public id!: string;
         @Prop({required: false}) public initial?: string;
 
         private _tabs: FoundationTab[] = [];

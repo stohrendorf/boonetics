@@ -17,10 +17,10 @@
 
     @Component({inheritAttrs: false})
     export default class NumberInput extends Vue {
-        @Prop({required: true}) public value?: number;
+        @Prop({required: true}) public value!: number;
 
-        @Prop({required: true}) public label?: string;
-        @Prop({required: true}) public size?: string;
+        @Prop({required: true}) public label!: string;
+        @Prop({required: true}) public size!: string;
 
         public get cssClass(): string {
             return `${this.size} cell input-group`;

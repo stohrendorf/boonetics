@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {Component, Prop, Ref, Vue} from 'vue-property-decorator';
     import * as $ from 'jquery';
     import 'foundation-sites';
 
@@ -15,17 +15,20 @@
     export default class FoundationSlider extends Vue {
         @Prop() public value?: number;
 
-        @Prop() public start?: number | string;
-        @Prop() public end?: number | string;
-        @Prop() public step?: number | string;
+        @Prop({required: true}) public start!: number | string;
+        @Prop({required: true}) public end!: number | string;
+        @Prop({required: false, default: 1}) public step!: number | string;
+
+        @Ref('slider') _slider!: HTMLElement;
+        @Ref('input') _input!: HTMLInputElement;
 
         public mounted() {
-            const coerceFloat = (value: number | string | undefined): number | undefined =>
-                value === undefined ? undefined : typeof value === 'string' ? parseFloat(value) : value;
+            const coerceFloat = (value: number | string): number =>
+                typeof value === 'string' ? parseFloat(value) : value;
 
             const self = this;
             this.$nextTick(() => {
-                const $elem = $(<HTMLElement>self.$refs.slider);
+                const $elem = $(this._slider);
                 new Foundation.Slider($elem, {
                     start: coerceFloat(self.start),
                     end: coerceFloat(self.end),
@@ -33,7 +36,7 @@
                     initialStart: self.value
                 });
                 $elem.on('change changed.zf.slider',
-                    () => this.$emit('input', (<HTMLInputElement>this.$refs.input).value));
+                    () => this.$emit('input', this._input.value));
             });
         }
     }
