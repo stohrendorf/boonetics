@@ -1,5 +1,5 @@
 <template>
-    <div class="slider" data-slider ref="slider">
+    <div class="slider" ref="slider">
         <span class="slider-handle" data-slider-handle role="slider" tabindex="1"></span>
         <span class="slider-fill" data-slider-fill></span>
         <input type="hidden" :value="value" ref="input">
@@ -45,5 +45,5 @@
 <style scoped lang="scss">
     @import "~foundation-sites/scss/foundation";
 
-    @include foundation-range-input;
+    @include foundation-slider;
 </style>

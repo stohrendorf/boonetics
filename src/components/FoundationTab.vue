@@ -28,6 +28,8 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import "~foundation-sites/scss/foundation";
 
+    @include foundation-tabs;
 </style>
